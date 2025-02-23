@@ -9,7 +9,7 @@ Este proyecto consiste en una API REST desarrollada con Node.js, Express y Prism
 1. [Requisitos Previos](#requisitos-previos)
 2. [Configuración y ejecución del proyecto](#configuración-del-y-ejecucion-del-proyecto)
 3. [Documentación de la API](#documentación-de-la-api)
-4. [Estructura del Proyecto](#estructura-del-proyecto)
+4. [Limitaciones de la API](#limitaciones-de-la-api)
 5. [Notas adicionales](#notas-adicionales)
 
 ---
@@ -18,6 +18,8 @@ Este proyecto consiste en una API REST desarrollada con Node.js, Express y Prism
 
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
+- **Node.js** (v18 o superior)
+- **npm** (viene con Node.js)
 - **Docker** (para ejecutar la base de datos MySQL y Swagger UI)
 - **Docker Compose** (viene con Docker)
 
@@ -39,10 +41,10 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
     ```
 
     Esto levantará los siguientes servicios:
-    MySQL
-    React App: Base de datos en http://localhost:3000.
-    API REST: Disponible en http://localhost:3001.
-    Swagger UI: Disponible en http://localhost:8080.
+    La base de datos MySQL
+    React App disponible en http://localhost:3000.
+    API REST disponible en http://localhost:3001.
+    Swagger UI disponible en http://localhost:8080.
 
 3.  Aplica las migraciones de Prisma:
 
@@ -85,24 +87,14 @@ http://localhost:8080
 
 Aquí podrás ver y probar todos los endpoints disponibles.
 
-## **Estructura del Proyecto**
+## **Limitaciones de la API**
 
-/proyecto
-├── api/ # Carpeta de la API REST
-│ ├── src/ # Código fuente de la API
-│ ├── prisma/ # Configuración de Prisma
-│ ├── tests/ # Tests de la API
-│ ├── Dockerfile # Dockerfile para la API
-│ └── package.json # Dependencias de la API
-│ └── swagger.json # Documentacion de la API
-├── frontend/ # Carpeta de la aplicación React
-│ ├── cypress/ # Tests e2e y de componentes
-│ ├── src/ # Código fuente de React
-│ ├── public/ # Archivos públicos de React
-│ ├── Dockerfile # Dockerfile para React
-│ └── package.json # Dependencias de React
-├── docker-compose.yml # Configuración de Docker Compose
-└── README.md # Este archivo
+La API REST desarrollada en este proyecto no incluye las siguientes funcionalidades:
+
+Autenticación de Usuarios: No se implementó un sistema de autenticación (por ejemplo, JWT, OAuth, etc.).
+Roles y Permisos: No se manejan roles ni permisos para los usuarios.
+Rate Limiting: No se limita el número de solicitudes que un cliente puede hacer en un período de tiempo.
+Caché: No se implementó un sistema de caché para mejorar el rendimiento de las consultas frecuentes.
 
 ## **Notas Adicionales**
 
