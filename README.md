@@ -37,7 +37,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 2.  Levanta los servicios con Docker Compose:
 
     ```bash
-    docker-compose up --build
+    sudo docker compose up -d --build
     ```
 
     Esto levantará los siguientes servicios:
