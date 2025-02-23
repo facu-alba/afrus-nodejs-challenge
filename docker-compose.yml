@@ -1,0 +1,60 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: afrus
+      TZ: "America/Argentina/Buenos_Aires"
+    ports:
+      - 3306:3306
+    networks:
+      - app_network
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+  api:
+    build: ./api
+    container_name: api_rest
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL="mysql://root:password@mysql:3306/afrus"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
+    networks:
+      - app_network
+
+  frontend:
+    build: ./frontend
+    container_name: react_app
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - app_network
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui
+    ports:
+      - "8080:8080"
+    environment:
+      - URL=/api-docs/swagger.json
+    volumes:
+      - ./api/swagger.json:/usr/share/nginx/html/api-docs/swagger.json
+    depends_on:
+      - api
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

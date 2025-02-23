@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:password@mysql:3306/afrus"
+}
+
+model products {
+  id           Int            @id @default(autoincrement())
+  name         String
+  description  String
+  price        Float
+  quantity     Int
+  transactions transactions[]
+  created_at   DateTime       @default(now())
+
+  @@index([name, description, price, quantity], name: "product_index")
+}
+
+model transactions {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  buyer_id   Int
+  paid_price Float
+  tax        Float
+  product    products @relation(fields: [product_id], references: [id])
+  buyer      buyers   @relation(fields: [buyer_id], references: [id])
+  created_at DateTime @default(now())
+
+  @@index([product_id, buyer_id], name: "transaction_index")
+}
+
+model buyers {
+  id           Int            @id @default(autoincrement())
+  name         String
+  lastname     String
+  type_id      String
+  transactions transactions[]
+  events       buyer_events[]
+  created_at   DateTime       @default(now())
+
+  @@index([name, lastname, type_id], name: "buyer_index")
+}
+
+model buyer_events {
+  id         Int      @id @default(autoincrement())
+  buyer_id   Int
+  event_type String
+  buyer      buyers   @relation(fields: [buyer_id], references: [id])
+  created_at DateTime @default(now())
+
+  @@index([buyer_id, event_type], name: "buyer_event_index")
+}
