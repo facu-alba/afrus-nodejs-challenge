@@ -30,8 +30,8 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 1.  Clona el repositorio:
 
     ```bash
-    git clone https://github.com/tu-usuario/tu-repositorio.git
-    cd tu-repositorio
+    git clone https://github.com/facu-alba/afrus-nodejs-challenge
+    cd afrus-nodejs-challenge
     ```
 
 2.  Levanta los servicios con Docker Compose:
